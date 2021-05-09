@@ -4,13 +4,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.ws.rs.core.Application;
-import core.service.PhoneNumberInterpretationService;
+import core.controller.PhoneNumberInterpretationController;
 
 public class PhoneNumberInterpretationApplication extends Application {
     private Set<Object> singletons = new HashSet<Object>();
 
     public PhoneNumberInterpretationApplication() {
-        singletons.add(new PhoneNumberInterpretationService());
+        singletons.add(new PhoneNumberInterpretationController());
     }
 
     @Override
