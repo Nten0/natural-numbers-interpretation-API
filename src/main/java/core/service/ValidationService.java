@@ -8,6 +8,9 @@ import java.util.Set;
 public class ValidationService {
     private static final Logger logger = LoggerFactory.getLogger(ValidationService.class);
 
+    public ValidationService() {
+    }
+
     /**
      * Check that each number in the input sequence is up to a three digit number
      *

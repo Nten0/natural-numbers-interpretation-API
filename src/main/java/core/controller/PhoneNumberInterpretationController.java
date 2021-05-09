@@ -15,17 +15,20 @@ import javax.ws.rs.core.Response;
 public class PhoneNumberInterpretationController {
     private static final Logger logger = LoggerFactory.getLogger(PhoneNumberInterpretationController.class);
 
-    private PhoneNumber phoneNumber;
-    private PhoneNumberInterpretationService phoneNumberInterpretationService;
-    private ValidationService validationService;
+    public PhoneNumberInterpretationController() {
+    }
 
     @GET
     @Path("/{param}")
     public Response printMessage(@PathParam("param") String input) {
+        PhoneNumber phoneNumber = new PhoneNumber();
+        PhoneNumberInterpretationService phoneNumberInterpretationService = new PhoneNumberInterpretationService();
+        ValidationService validationService = new ValidationService();
+
         String result = null;
         String[] inputNumberArray = input.trim().split("\\s+");
 
-        if (validationService.validateNumberSize(inputNumberArray)){
+        if (validationService.validateNumberSize(inputNumberArray)) {
             logger.info("Each number in the input sequence is up to a three digit number!");
 
             phoneNumber.setInputNumber(String.join("", inputNumberArray));
@@ -37,7 +40,9 @@ public class PhoneNumberInterpretationController {
             logger.warn("Input Is Not Invalid");
         }
 
-        return Response.status(200).entity(result).build();
+        return Response
+                .status(Response.Status.OK)
+                .entity(phoneNumber.getInputNumber())
+                .build();
     }
-
 }
