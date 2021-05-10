@@ -1,0 +1,7 @@
+Interpretation 1: 302558 [phone number: INVALID]
+
+Interpretation 2: 2106930664 [phone number: VALID]
+
+Interpretation 3: 21069306604 [phone number: INVALID]
+
+Interpretation 4: 00306974092252 [phone number: VALID]
