@@ -65,7 +65,8 @@ public class PhoneNumberInterpretationApplicationTest {
         try {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();;
+                String line = scanner.nextLine();
+                ;
                 result.add(line);
             }
         } catch (FileNotFoundException e) {
@@ -78,11 +79,20 @@ public class PhoneNumberInterpretationApplicationTest {
     @Test
     @DisplayName("Test possibleAmbiguitiesIdentifier")
     public void testPossibleAmbiguitiesIdentifier() {
+        String[] strArray =  "2 3".split(" ");
 
-        assertEquals(2, phoneNumberInterpretationService.possibleAmbiguitiesIdentifier(VALID_PHONE_NUMBER_1.trim().split("\\s+")).size());
-        assertEquals(4, phoneNumberInterpretationService.possibleAmbiguitiesIdentifier(VALID_PHONE_NUMBER_2.trim().split("\\s+")).size());
-        assertEquals(8, phoneNumberInterpretationService.possibleAmbiguitiesIdentifier(VALID_PHONE_NUMBER_3.trim().split("\\s+")).size());
+        Set<String> possibleAmbiguities = new HashSet();
+        phoneNumberInterpretationService.possibleAmbiguitiesIdentifier(strArray, "", possibleAmbiguities);
+        System.out.println(possibleAmbiguities);
+
+//        possibleAmbiguities = new HashSet();
+//        phoneNumberInterpretationService.possibleAmbiguitiesIdentifier(VALID_PHONE_NUMBER_1.trim().split("\\s+"), "", possibleAmbiguities)
+//        assertEquals(2, possibleAmbiguities.size());
+//        possibleAmbiguities = new HashSet();
+//        phoneNumberInterpretationService.possibleAmbiguitiesIdentifier(VALID_PHONE_NUMBER_2.trim().split("\\s+"), "", possibleAmbiguities)
+//        assertEquals(4, possibleAmbiguities.size());
+//        possibleAmbiguities = new HashSet();
+//        phoneNumberInterpretationService.possibleAmbiguitiesIdentifier(VALID_PHONE_NUMBER_3.trim().split("\\s+"), "", possibleAmbiguities)
+//        assertEquals(8, possibleAmbiguities.size());
     }
-
-
 }

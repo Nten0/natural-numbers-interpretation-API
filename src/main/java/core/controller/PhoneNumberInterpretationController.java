@@ -33,19 +33,12 @@ public class PhoneNumberInterpretationController {
         if (validationService.validateNumberSize(inputNumberArray)) {
             logger.info("Each number in the input sequence is up to a three digit number!");
 
-            //Temporary mock values to test the isValidGreekPhoneNumber functionality
-            Set<String> test = new HashSet();
-            test.add("302558");
-            test.add("2106930664");
-            test.add("21069306604");
-            test.add("00306974092252");
-            result = validationService.isValidGreekPhoneNumber(test);
+            Set<String> possibleAmbiguities = new HashSet();
+            phoneNumber.setInputNumber(String.join("", inputNumberArray));
+            phoneNumberInterpretationService.possibleAmbiguitiesIdentifier(inputNumberArray, "", possibleAmbiguities);
+            phoneNumber.setPossiblePhoneNumbers(possibleAmbiguities);
 
-//            phoneNumber.setInputNumber(String.join("", inputNumberArray));
-//            phoneNumber.setPossiblePhoneNumbers(phoneNumberInterpretationService.possibleAmbiguitiesIdentifier(inputNumberArray));
-//
-//            result = validationService.isValidGreekPhoneNumber(phoneNumber.getPossiblePhoneNumbers());
-
+            result = validationService.isValidGreekPhoneNumber(phoneNumber.getPossiblePhoneNumbers());
         } else {
             logger.warn("Input Is Not Invalid");
         }
