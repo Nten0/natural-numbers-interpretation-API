@@ -30,7 +30,12 @@ public class PhoneNumberInterpretationService {
             if (input[0].length() == 3) { // starts with a 3-digit number
                 if (input[0].endsWith(DOUBLE_ZERO) && (input[1].length() == 2)) {  // eg 300 14 or 800 30
                     possibleAmbiguitiesIdentifier(ArrayUtils.subarray(input, 2, input.length), possibleAmbiguity + input[0] + input[1], possibleAmbiguities);
-                    possibleAmbiguitiesIdentifier(ArrayUtils.subarray(input, 2, input.length), possibleAmbiguity + input[0].charAt(0) + input[1], possibleAmbiguities);
+                    if (!input[1].endsWith("0")) { // eg 300 14
+                        possibleAmbiguitiesIdentifier(ArrayUtils.subarray(input, 2, input.length), possibleAmbiguity + input[0].charAt(0) + input[1], possibleAmbiguities);
+                    } else { // eg 800 30
+                        input[1] = input[0].charAt(0) + input[1];
+                        possibleAmbiguitiesIdentifier(ArrayUtils.subarray(input, 1, input.length), possibleAmbiguity, possibleAmbiguities);
+                    }
                 } else if (input[0].endsWith(ZERO) && input[1].length() == 1) { // eg 830 5
                     possibleAmbiguitiesIdentifier(ArrayUtils.subarray(input, 2, input.length), possibleAmbiguity + input[0] + input[1], possibleAmbiguities);
                     possibleAmbiguitiesIdentifier(ArrayUtils.subarray(input, 2, input.length), possibleAmbiguity + input[0].substring(0, 2) + input[1], possibleAmbiguities);
