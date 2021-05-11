@@ -16,6 +16,9 @@ import java.util.Set;
 @Path("/number")
 public class PhoneNumberInterpretationController {
     private static final Logger logger = LoggerFactory.getLogger(PhoneNumberInterpretationController.class);
+    private static final String WHITESPACE_REGEX = "\\s+";
+
+    private String EMPTY_STRING = "";
 
     public PhoneNumberInterpretationController() {
     }
@@ -28,14 +31,17 @@ public class PhoneNumberInterpretationController {
         ValidationService validationService = new ValidationService();
 
         String result = null;
-        String[] inputNumberArray = input.trim().split("\\s+");
+        String[] inputNumberArray = input.trim().split(WHITESPACE_REGEX);
 
         if (validationService.validateNumberSize(inputNumberArray)) {
             logger.info("Each number in the input sequence is up to a three digit number!");
 
+            logger.info("Input telephone number is: " + String.join(EMPTY_STRING, inputNumberArray));
+            phoneNumber.setInputNumber(String.join(EMPTY_STRING, inputNumberArray));
+
+            logger.info("Calculating all the possible ambiguities for the telephone number: " + String.join(EMPTY_STRING, inputNumberArray));
             Set<String> possibleAmbiguities = new HashSet();
-            phoneNumber.setInputNumber(String.join("", inputNumberArray));
-            phoneNumberInterpretationService.possibleAmbiguitiesIdentifier(inputNumberArray, "", possibleAmbiguities);
+            phoneNumberInterpretationService.possibleAmbiguitiesIdentifier(inputNumberArray, EMPTY_STRING, possibleAmbiguities);
             phoneNumber.setPossiblePhoneNumbers(possibleAmbiguities);
 
             result = validationService.isValidGreekPhoneNumber(phoneNumber.getPossiblePhoneNumbers());

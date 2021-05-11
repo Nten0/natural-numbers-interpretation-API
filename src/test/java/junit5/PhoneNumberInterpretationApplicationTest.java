@@ -16,6 +16,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PhoneNumberInterpretationApplicationTest {
 
+    private static final String EXPECTED_OUTPUT_TXT = "expected-output.txt";
+    private String whitespaceRegex = "\\s+";
+    private String EMPTY_STRING = "";
+    private String NEW_LINE = "\n";
+
     private ValidationService validationService;
     private PhoneNumberInterpretationService phoneNumberInterpretationService;
 
@@ -39,14 +44,14 @@ public class PhoneNumberInterpretationApplicationTest {
     @DisplayName("Test validateNumberSize")
     public void testValidateNumberSize() {
 
-        assertTrue(validationService.validateNumberSize(VALID_PHONE_NUMBER_1.trim().split("\\s+")));
-        assertTrue(validationService.validateNumberSize(VALID_PHONE_NUMBER_2.trim().split("\\s+")));
-        assertTrue(validationService.validateNumberSize(VALID_PHONE_NUMBER_3.trim().split("\\s+")));
+        assertTrue(validationService.validateNumberSize(VALID_PHONE_NUMBER_1.trim().split(whitespaceRegex)));
+        assertTrue(validationService.validateNumberSize(VALID_PHONE_NUMBER_2.trim().split(whitespaceRegex)));
+        assertTrue(validationService.validateNumberSize(VALID_PHONE_NUMBER_3.trim().split(whitespaceRegex)));
 
-        assertFalse(validationService.validateNumberSize(INVALID_PHONE_NUMBER_1.trim().split("\\s+")));
-        assertFalse(validationService.validateNumberSize(INVALID_PHONE_NUMBER_2.trim().split("\\s+")));
-        assertFalse(validationService.validateNumberSize(INVALID_PHONE_NUMBER_3.trim().split("\\s+")));
-        assertFalse(validationService.validateNumberSize(INVALID_PHONE_NUMBER_4.trim().split("\\s+")));
+        assertFalse(validationService.validateNumberSize(INVALID_PHONE_NUMBER_1.trim().split(whitespaceRegex)));
+        assertFalse(validationService.validateNumberSize(INVALID_PHONE_NUMBER_2.trim().split(whitespaceRegex)));
+        assertFalse(validationService.validateNumberSize(INVALID_PHONE_NUMBER_3.trim().split(whitespaceRegex)));
+        assertFalse(validationService.validateNumberSize(INVALID_PHONE_NUMBER_4.trim().split(whitespaceRegex)));
     }
 
     @Test
@@ -60,39 +65,42 @@ public class PhoneNumberInterpretationApplicationTest {
         test.add("00306974092252");
 
         List<String> result = new ArrayList<String>();
-        File file = new File(getClass().getClassLoader().getResource("expected-output.txt").toURI());
+        File file = new File(getClass().getClassLoader().getResource(EXPECTED_OUTPUT_TXT).toURI());
 
         try {
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                ;
                 result.add(line);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
-        assertEquals(String.join("\n", result), validationService.isValidGreekPhoneNumber(test));
+        assertEquals(String.join(NEW_LINE, result), validationService.isValidGreekPhoneNumber(test));
     }
 
     @Test
     @DisplayName("Test possibleAmbiguitiesIdentifier")
     public void testPossibleAmbiguitiesIdentifier() {
-        String[] strArray =  "2 3".split(" ");
 
         Set<String> possibleAmbiguities = new HashSet();
-        phoneNumberInterpretationService.possibleAmbiguitiesIdentifier(strArray, "", possibleAmbiguities);
+//        String[] strArray =  "6 9 7 30 2 16 700 20 4".split(" ");
+//        phoneNumberInterpretationService.possibleAmbiguitiesIdentifier(strArray, "", possibleAmbiguities);
+//        System.out.println(possibleAmbiguities);
+
+        phoneNumberInterpretationService.possibleAmbiguitiesIdentifier(VALID_PHONE_NUMBER_1.trim().split(whitespaceRegex), EMPTY_STRING, possibleAmbiguities);
         System.out.println(possibleAmbiguities);
+        assertEquals(2, possibleAmbiguities.size());
 
 //        possibleAmbiguities = new HashSet();
-//        phoneNumberInterpretationService.possibleAmbiguitiesIdentifier(VALID_PHONE_NUMBER_1.trim().split("\\s+"), "", possibleAmbiguities)
-//        assertEquals(2, possibleAmbiguities.size());
-//        possibleAmbiguities = new HashSet();
-//        phoneNumberInterpretationService.possibleAmbiguitiesIdentifier(VALID_PHONE_NUMBER_2.trim().split("\\s+"), "", possibleAmbiguities)
+//        phoneNumberInterpretationService.possibleAmbiguitiesIdentifier(VALID_PHONE_NUMBER_2.trim().split(whitespaceRegex), EMPTY_STRING, possibleAmbiguities);
+//        //System.out.println(possibleAmbiguities);
 //        assertEquals(4, possibleAmbiguities.size());
+
 //        possibleAmbiguities = new HashSet();
-//        phoneNumberInterpretationService.possibleAmbiguitiesIdentifier(VALID_PHONE_NUMBER_3.trim().split("\\s+"), "", possibleAmbiguities)
+//        phoneNumberInterpretationService.possibleAmbiguitiesIdentifier(VALID_PHONE_NUMBER_3.trim().split(whitespaceRegex), EMPTY_STRING, possibleAmbiguities);
+//        //System.out.println(possibleAmbiguities);
 //        assertEquals(8, possibleAmbiguities.size());
     }
 }

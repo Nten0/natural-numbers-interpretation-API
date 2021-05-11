@@ -11,6 +11,11 @@ import java.util.regex.Pattern;
 
 public class ValidationService {
     private static final Logger logger = LoggerFactory.getLogger(ValidationService.class);
+    private static final String ONLY_DIGITS_REGEX = "\\d+";
+    private static final String GREEK_PHONE_PREFIX = "2";
+    private static final String GREEK_MOBILE_PHONE_PREFIX = "69";
+    private static final String GREEK_PHONE_PREFIX_WITH_INTERNATIONAL_CODE = "00302";
+    private static final String GREEK_MOBILE_PHONE_PREFIX_WITH_INTERNATIONAL_CODE = "003069";
 
     public ValidationService() {
     }
@@ -22,7 +27,7 @@ public class ValidationService {
      * @return boolean
      */
     public boolean validateNumberSize(String[] input) {
-        Pattern pattern = Pattern.compile("\\d+");
+        Pattern pattern = Pattern.compile(ONLY_DIGITS_REGEX);
         if (input != null) {
             return Arrays.stream(input).noneMatch(x -> x.length() > 3 || !pattern.matcher(x).matches());
         }
@@ -38,10 +43,12 @@ public class ValidationService {
     public String isValidGreekPhoneNumber(Set<String> phoneNumber) {
         List<String> result = new ArrayList<String>();
         int counter = 0;
-        for (String values : phoneNumber){
+        for (String values : phoneNumber) {
             counter++;
-            if ((values.length() == 10 && (values.startsWith("2") || values.startsWith("69"))) ||
-                    (values.length() == 14 && (values.startsWith("00302") || values.startsWith("003069")))) {
+            if ((values.length() == 14 &&
+                    (values.startsWith(GREEK_PHONE_PREFIX_WITH_INTERNATIONAL_CODE) || values.startsWith(GREEK_MOBILE_PHONE_PREFIX_WITH_INTERNATIONAL_CODE))) ||
+                (values.length() == 10 &&
+                    (values.startsWith(GREEK_PHONE_PREFIX) || values.startsWith(GREEK_MOBILE_PHONE_PREFIX)))) {
                 result.add("Interpretation " + counter + ": " + values + " [phone number: VALID]");
             } else {
                 result.add("Interpretation " + counter + ": " + values + " [phone number: INVALID]");
@@ -49,5 +56,4 @@ public class ValidationService {
         }
         return String.join("\n\n", result);
     }
-
 }
