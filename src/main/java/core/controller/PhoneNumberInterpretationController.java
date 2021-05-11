@@ -16,6 +16,7 @@ import java.util.Set;
 
 @Path("/number")
 public class PhoneNumberInterpretationController {
+    private static final String INTERNATIONAL_GREEK_CODE_PREFIX = "0030";
     private static final Logger logger = LoggerFactory.getLogger(PhoneNumberInterpretationController.class);
     private static final String WHITESPACE_REGEX = "\\s+";
     private static final String SPACE = " ";
@@ -28,7 +29,7 @@ public class PhoneNumberInterpretationController {
 
     @GET
     @Path("/{param}")
-    public Response printMessage(@PathParam("param") String input) {
+    public Response printPossibleAmbiguities(@PathParam("param") String input) {
         PhoneNumber phoneNumber = new PhoneNumber();
         PhoneNumberInterpretationService phoneNumberInterpretationService = new PhoneNumberInterpretationService();
         ValidationService validationService = new ValidationService();
@@ -53,14 +54,15 @@ public class PhoneNumberInterpretationController {
                 logger.info("Adding the code prefix to the telephone number");
                 Set<String> possibleAmbiguitiesWithPrefix = new HashSet();
                 for (String possibleAmbiguity : possibleAmbiguities) {
-                    possibleAmbiguitiesWithPrefix.add("0030".concat(possibleAmbiguity));
+                    possibleAmbiguitiesWithPrefix.add(INTERNATIONAL_GREEK_CODE_PREFIX.concat(possibleAmbiguity));
                 }
                 phoneNumber.setPossiblePhoneNumbers(possibleAmbiguitiesWithPrefix);
             } else {
                 phoneNumber.setPossiblePhoneNumbers(possibleAmbiguities);
             }
 
-            result = validationService.isValidGreekPhoneNumber(phoneNumber.getPossiblePhoneNumbers());
+            result = "Input telephone number is: " + String.join(EMPTY_STRING, inputNumberArray) + "\n\n";
+            result += validationService.isValidGreekPhoneNumber(phoneNumber.getPossiblePhoneNumbers());
         } else {
             logger.warn("Input is Invalid!");
         }
@@ -78,7 +80,7 @@ public class PhoneNumberInterpretationController {
         for (int i = 0; i < strArray.length; i++) {
             if (strArray[i] != SPACE) {
                 current = current.concat(strArray[i]);
-                if (current.startsWith("0030")) {
+                if (current.startsWith(INTERNATIONAL_GREEK_CODE_PREFIX)) {
                     pos = i;
                     break;
                 }

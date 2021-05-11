@@ -47,7 +47,7 @@ public class PhoneNumberInterpretationService {
                 } else if (input[0].substring(0, 2).endsWith(ZERO)) { // eg 702 following by any 3-digit number
                     possibleAmbiguitiesIdentifier(ArrayUtils.subarray(input, 1, input.length), possibleAmbiguity + input[0], possibleAmbiguities); // eg 702
                     possibleAmbiguitiesIdentifier(ArrayUtils.subarray(input, 1, input.length), possibleAmbiguity + input[0].replace(ZERO, EMPTY_STRING), possibleAmbiguities); // eg 72
-                } else { // eg 835 following by any 3-digit number)
+                } else { // eg 835
                     possibleAmbiguitiesIdentifier(ArrayUtils.subarray(input, 1, input.length), possibleAmbiguity + input[0], possibleAmbiguities); //eg 835
 //                    possibleAmbiguitiesIdentifier(ArrayUtils.subarray(input, 1, input.length), possibleAmbiguity + input[0].substring(0, 2) + ZERO + input[0].charAt(2), possibleAmbiguities); // eg 8305
 //                    possibleAmbiguitiesIdentifier(ArrayUtils.subarray(input, 1, input.length), possibleAmbiguity + input[0].charAt(0) + DOUBLE_ZERO + input[0].substring(1, 3), possibleAmbiguities); // eg 80035
