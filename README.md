@@ -8,6 +8,8 @@
 <br>
 
 ### Compile
+You can find a guide on how to install Maven on Windows [here](https://howtodoinjava.com/maven/how-to-install-maven-on-windows/)
+
 In order to compile the application, use the Maven. Run the command **mvn clean install** in the {PROJECT_ROOT_FOLDER}, in which the pom.xml appears.
 
 If the compilation process was successful, then the file **natural-numbers-interpretation.war** should appear under the {PROJECT_ROOT_FOLDER}/target/
