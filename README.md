@@ -8,7 +8,7 @@
 <br>
 
 ### Compile
-In order to compile the application use the Maven. Run the command **mvn clean install** in the {PROJECT_ROOT_FOLDER}, in which the pom.xml appears.
+In order to compile the application, use the Maven. Run the command **mvn clean install** in the {PROJECT_ROOT_FOLDER}, in which the pom.xml appears.
 
 If the compilation process was successful, then the file **natural-numbers-interpretation.war** should appear under the {PROJECT_ROOT_FOLDER}/target/
 
@@ -17,7 +17,7 @@ If the compilation process was successful, then the file **natural-numbers-inter
 ### Deploy
 Download Wildfly from [here](https://www.wildfly.org/)
 
-1. Copy the above .war file and paste it under the {WILDFLY_ROOT_FOLDER}/standalone/configuration
+1. Copy the above .war file and paste it under the {WILDFLY_ROOT_FOLDER}/standalone/deployments
 2. Open a terminal and navigate to {WILDFLY_ROOT_FOLDER}/bin
 3. execute from command line <b><i>standalone.bat</i></b>
 
@@ -29,7 +29,7 @@ If everything has been done correctly then if you navigate to **http://localhost
 <br>
 
 ### How-to
-Since the application does not have any front end implementation, in order to use the functionality there is an endpoint at **http://localhost:8080/natural-numbers-interpretation/validate/number/**
+Since the application does not have any front end implementation, in order to use the functionality, an endpoint has been exposed at <http://localhost:8080/natural-numbers-interpretation/validate/number/put your number here>
 
 You can either use a browser or any  API client (like [Postman](https://www.postman.com/))
 
@@ -38,9 +38,10 @@ You can either use a browser or any  API client (like [Postman](https://www.post
 ### Example
 If you want to find all the interpratations of the number **0 0 30 69 5 63 40 564**, you can just search for
 <br>
-**http://localhost:8080/natural-numbers-interpretation/validate/number/0 0 30 69 5 63 40 564**
+<http://localhost:8080/natural-numbers-interpretation/validate/number/0 0 30 69 5 63 40 564>
 
-The output should be:
+The output should be: <br>
+
 Input telephone number is: 00306956340564
 
 Interpretation 1: 0030609563405604 [phone number: INVALID]
