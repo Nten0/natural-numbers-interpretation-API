@@ -34,7 +34,7 @@ public class PhoneNumberInterpretationController {
         PhoneNumberInterpretationService phoneNumberInterpretationService = new PhoneNumberInterpretationService();
         ValidationService validationService = new ValidationService();
 
-        String result = null;
+        String result = "Something went wrong!";
         String[] inputNumberArray = input.trim().split(WHITESPACE_REGEX);
 
         if (validationService.validateNumberSize(inputNumberArray)) {
@@ -66,6 +66,8 @@ public class PhoneNumberInterpretationController {
         } else {
             logger.warn("Input is Invalid!");
         }
+
+        result = result.replaceAll("(\r\n|\n\n|\n)", "<br/><br/>");
 
         return Response
                 .status(Response.Status.OK)
