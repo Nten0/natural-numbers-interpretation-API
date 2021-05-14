@@ -33,7 +33,7 @@ If everything has been done correctly then if you navigate to **http://localhost
 ### How-to
 Since the application does not have any front end implementation, in order to use the functionality, an endpoint has been exposed at <http://localhost:8080/natural-numbers-interpretation/validate/number/put your number here>
 
-You can either use a browser or any  API client (like [Postman](https://www.postman.com/))
+You can either use a browser or any  API client (like [Postman](https://www.postman.com/)). In case you use Postman, make sure to preview the response as HTML.
 
 <br>
 
