@@ -26,7 +26,7 @@ Download Wildfly from [here](https://www.wildfly.org/)
 If everything has been done correctly then if you navigate to **http://localhost:8080/natural-numbers-interpretation/** you should see the message **Application is up and running**.
 <br>
 
-**Note:** You can automate the compile and deploy procedure by adding the Wildfly to your IDE configuration (for IntelliJ - look [here](https://www.jetbrains.com/help/idea/configuring-and-managing-application-server-integration.html))
+**Note:** You can automate the compile-and-deploy process by adding the Wildfly to your IDE configuration (for IntelliJ - look [here](https://www.jetbrains.com/help/idea/configuring-and-managing-application-server-integration.html))
 
 <br>
 
@@ -38,7 +38,7 @@ You can either use a browser or any  API client (like [Postman](https://www.post
 <br>
 
 ### Example
-If you want to find all the interpratations of the number **0 0 30 69 5 63 40 564**, you can just search for
+If you want to find all the interpretations of the number **0 0 30 69 5 63 40 564**, you can just search for
 <br>
 <http://localhost:8080/natural-numbers-interpretation/validate/number/0 0 30 69 5 63 40 564>
 
